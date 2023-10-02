@@ -2,9 +2,7 @@
 #include <iostream>
 #include <string>
 
-
 #include "nVectorFunctions.h"
-
 
 template <typename value_t>
 class nVector{
@@ -16,6 +14,7 @@ private:
     nVector()
     {
         n_Order = 0;
+        arrayPointer = nullptr;
         std::cout << "\tError:\tnVector::Default Constructor is called, which indicates an error\n";
     }
 public:
@@ -32,20 +31,13 @@ public:
             std::printf("Default Consturctor: %s (%i) \n", to_string().c_str(), n_Order);
     }
     
-    nVector(value_t* begin, value_t* end, size_t n_Order = 0){
-        if(n_Order < 1) n_Order = end - begin; 
-        else this->n_Order = n_Order;
 
-        arrayPointer = new value_t [n_Order];
-        std::copy(begin, end, arrayPointer);
-        
-        if(_debug)
-            std::printf("Default Consturctor: %s (%i) \n", to_string().c_str(), n_Order);
-    }    
     
-    nVector(std::initializer_list<value_t> c){
-        n_Order = c.size();
-        arrayPointer = new value_t[n_Order];
+    nVector(std::initializer_list<value_t> c, size_t n_Order = 0){
+        if(n_Order < c.size()) 
+            n_Order = c.size();
+        this->n_Order = n_Order;
+        arrayPointer = nVectorFunctions::AllocateArray<value_t>(n_Order, 0);
         std::copy(c.begin(), c.end(), arrayPointer);
     }
     

@@ -68,9 +68,20 @@ TEST(LinearAlgebra, Chapter3_5_Q7){
 
 TEST(LinearAlgebra, MatrixTest){
   typedef nVector<float> col_t;
-  // col_t* vectorArrayPointer = new col_t[10];
+  int col_n = 10;
+  int row_m = 10;
+  col_t** v_ptrptr = new col_t*[col_n];
 
-  // cout << *vectorArrayPointer << endl;
+  for(size_t i = 0; i < row_m; ++i){
+    v_ptrptr[i] = new col_t({1,2,3,4}, row_m);
+    cout << "allocate row : " << i << endl;
+  }
+
+  for(size_t i = 0; i < row_m; ++i)
+  {
+    cout << "col " << i << " : " << *(v_ptrptr[i]) << endl;
+  }
+
 
 }
 int main(int argc, char **argv) {
