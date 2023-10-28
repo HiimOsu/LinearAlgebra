@@ -10,7 +10,7 @@ private:
     typedef int size_t;
     size_t      n_Order;
     value_t*    arrayPointer;
-    bool _debug = false;
+    static const bool _debug = true;
     nVector()
     {
         n_Order = 0;
@@ -34,6 +34,10 @@ public:
 
     
     nVector(std::initializer_list<value_t> c, size_t n_Order = 0){
+        if(_debug)
+        {
+            std::cout << "[VAR] _debug address: " << &_debug << std::endl;
+        }
         if(n_Order < c.size()) 
             n_Order = c.size();
         this->n_Order = n_Order;
@@ -108,20 +112,25 @@ public:
     
     friend nVector<value_t> vector_addition(const nVector<value_t>& v1, const nVector<value_t>& v2)
     {
-        if(v1.get_order() != v2.get_order()) return nVector<value_t>();
+        if(v1.count() != v2.count()) return nVector<value_t>();
         nVector<value_t> v3(v1);
-        for (size_t i = 0; i < v3.get_order(); i++)
+        for (size_t i = 0; i < v3.count(); i++)
         {
+            if(nVector<value_t>::_debug)
+                std::cout << "i: " << i << " ,v1: " << v1[i] << ", v2: " << v2[i] << '\n';
             v3[i] += v2[i];
         }   
         return v3;
     }
 
-    friend nVector<value_t> scalar_multiplication(const nVector<value_t>& v1, value_t scalar)
+    friend nVector<value_t> scalar_multiplication(const nVector<value_t>& v1, const value_t& scalar)
     {
         nVector<value_t> v3(v1);
-        for (size_t i = 0; i < v3.get_order(); i++)
+        for (size_t i = 0; i < v3.count(); i++)
         {
+            if(nVector<value_t>::_debug){
+                std::cout << "i: " << i << " ,v1: " << v1[i] << "scalar: " << scalar << '\n';
+            }
             v3[i] *= scalar;
         }
         return v3;
@@ -130,9 +139,9 @@ public:
 
     friend value_t dot_product(const nVector<value_t>& v1, const nVector<value_t>& v2)
     {
-        if(v1.get_order() != v2.get_order()) return value_t();
+        if(v1.count() != v2.count()) return value_t();
         value_t value = 0;
-        for(size_t i = 0; i < v1.get_order(); ++i){
+        for(size_t i = 0; i < v1.count(); ++i){
             value += v1[i] * v2[i];
         }
 
@@ -148,7 +157,7 @@ public:
     {
         return arrayPointer + n_Order;
     }
-    size_t get_order() const
+    size_t count() const
     {
         return n_Order;
     }
@@ -191,3 +200,7 @@ public:
     }
   
 };
+
+template <typename value_t>
+const bool nVector<value_t>::_debug;
+

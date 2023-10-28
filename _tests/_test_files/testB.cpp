@@ -28,7 +28,7 @@ TEST(nVectorTest, DISABLED_ModiferTest){
 
 }
 
-TEST(LinearAlgebra, Chapter3_5_Q7){
+TEST(M10, DISABLED_Chapter3_5_Q7){
   nVector<int> v1 = {2, -3, 4, -1, 7},
   v2 = {-3, 2, -1, 4, 2}, 
   v3 = {5, -6, 7 , -4, 10};
@@ -66,7 +66,25 @@ TEST(LinearAlgebra, Chapter3_5_Q7){
 
 }
 
-TEST(LinearAlgebra, MatrixTest){
+TEST(M10, HW_5_2_1a)
+{
+  nVector<float> v1 = {1, -1, 1},
+  v2 = {1,-1,-1},
+  v3 = {0,1,1};
+
+  nVector<int> v4 = {1};
+  // cout << "v1:" << v1 
+  // << "\nv2: " << v2 
+  // << "\nv3: " << v3 
+  // << "\n\n";
+
+
+  // auto v4 = ((-13.0/2.0) * v1 + (19.0F/2.0F)*v2) ;
+  // cout << "( (-13/2) * v1 + (19/2)*v2 )= " << v4 << endl;
+  // cout << "... * 8 * v3 = " << (v4 + (8*v3)) << endl;
+}
+
+TEST(LinearAlgebra, DISABLED_MatrixTest){
   typedef nVector<float> col_t;
   int col_n = 10;
   int row_m = 10;
@@ -84,6 +102,7 @@ TEST(LinearAlgebra, MatrixTest){
 
 
 }
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   std::cout<<"\n\n----------running testB.cpp---------\n\n"<<std::endl;
