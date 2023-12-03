@@ -2,12 +2,13 @@
 
 #include <iostream>
 
-#include "..\..\includes\nVector.h"
+#include "..\..\includes\VectorCollections\nVector.h"
+#include "..\..\includes\VectorCollections\VectorCollections.h"
 
 using namespace std;
 
 
-TEST(nVectorTest, DISABLED_ModiferTest){
+TEST(nVectorTest, ModiferTest){
     cout << "Entering VectorModiferTest\n";
     nVector<double> v1(3);
 
@@ -17,90 +18,59 @@ TEST(nVectorTest, DISABLED_ModiferTest){
 
     nVector<double> v2(v1);
     cout << "v1: " << v1.to_string() << endl;
-    cout << "v2: " << v2.to_string() << endl;
+    cout << "v2: " << to_string(v2) << endl;
 
-    cout << "the dot product of v1 and v2 : " << dot_product(v1, v2) << endl;
-    cout << "the dot product of v1 ^ 2: " << dot_product(v1, v1) << endl;
+    cout << "the dot product of v1 and v2 : " << nVector<double>::dot_product(v1, v2) << endl;
+    cout << "the dot product of v1 ^ 2: " << nVector<double>::dot_product(v1, v1) << endl;
 
     cout << "v1 + v2 : " << v1 + v2 << endl;
     cout << "v1 - v2: " << v1 - v2 << endl;
     cout << "v1 + 2*v2: " << v1 + 2*v2 << endl;
-
+    
 }
 
-TEST(M10, DISABLED_Chapter3_5_Q7){
-  nVector<int> v1 = {2, -3, 4, -1, 7},
-  v2 = {-3, 2, -1, 4, 2}, 
-  v3 = {5, -6, 7 , -4, 10};
-
-  cout << "v1: " << v1 << "\nv2: " << v2 << "\nv3: " << v3 << endl;
-
-  cout << "\n\n\n";
-
-  nVector<int> u1 = v1 + 8*v2 - 5 * v3,
-  u2 = 5*v2 - 3*v3,
-  u3 = 2*v2 - v3;
-
-  cout << "u1: " << u1 << endl;
-  cout << "u2: " << u2 << endl;
-  cout << "u3: " << u3 << endl;
-
-
-  cout << "T(<1,-2,1>)L: " << u1 - 2*u2 + u3 << endl;
-  cout << "T(<0,-1,3>)L: " << -u2 + 3*u3 << endl;
-  cout << "T(<0,-2,5>)L: " << - 2*u2 + 5*u3 << endl;
-
-  nVector<int> r1 = {-4, -2, -1},
-  r2 = {-1, 6, -1},
-  r3 = {-39, -26, -9},
-  r4 = {51, 32, 12},
-  r5 = {-27, -20, -6};
-
-  cout << "\n\n1st:\n"
-  << "r1: " << (r1 = r1 - 4*r2) << endl
-  << "r3: " << (r3 = r3 - 39 * r2) << endl
-  << "r4: " << (r4 = r4 + 51 * r2) << endl
-  << "r5: " << (r5 = r5 - 27*r2) << endl;
-  
-  cout<< "r2: " << (r2 = -r2) << endl;
-
-}
-
-TEST(M10, HW_5_2_1a)
+TEST(VectorCollections, vector2f)
 {
-  nVector<float> v1 = {1, -1, 1},
-  v2 = {1,-1,-1},
-  v3 = {0,1,1};
+  DAM::Vector2f a({1,2}), b(a);
+  cout << a.x() << " " << a.y() << endl;
 
-  nVector<int> v4 = {1};
-  // cout << "v1:" << v1 
-  // << "\nv2: " << v2 
-  // << "\nv3: " << v3 
-  // << "\n\n";
-
-
-  // auto v4 = ((-13.0/2.0) * v1 + (19.0F/2.0F)*v2) ;
-  // cout << "( (-13/2) * v1 + (19/2)*v2 )= " << v4 << endl;
-  // cout << "... * 8 * v3 = " << (v4 + (8*v3)) << endl;
+  a = {3,4};
+  a = a + a;
+  cout << a.to_string() << endl;
+  cout << a * 2 << endl;
+  cout << a / 2 << endl;
+  cout << a + a <<endl;
+  cout << a - a << endl;
+  cout << a * a << endl;
+  a = a + a;
+  cout << "a+a: " << a << endl;
+  cout << "b" << b << endl;
 }
 
-TEST(LinearAlgebra, DISABLED_MatrixTest){
-  typedef nVector<float> col_t;
+TEST(VectorCollections, vector3f)
+{
+  DAM::Vector3f a({1,2,6}), b(a);
+  cout << a.to_string() << endl;
+  cout << a * 2 << endl;
+  cout << a / 2 << endl;
+  cout << a + a <<endl;
+  cout << a - a << endl;
+  cout << a * a << endl;
+  a = a + a;
+  cout << "a+a: " << a << endl;
+  cout << "b" << b << endl;
+  cout << "b.normalize && length : " << b.normalize() << " + " << b.length() << endl; 
+  cout << "b.normal length: " << b.normalize().length() << endl;
+
+}
+
+TEST(LinearAlgebra, MatrixTest){
   int col_n = 10;
   int row_m = 10;
-  col_t** v_ptrptr = new col_t*[col_n];
 
-  for(size_t i = 0; i < row_m; ++i){
-    v_ptrptr[i] = new col_t({1,2,3,4}, row_m);
-    cout << "allocate row : " << i << endl;
-  }
+  Mat<int> m1(col_n, row_m);
 
-  for(size_t i = 0; i < row_m; ++i)
-  {
-    cout << "col " << i << " : " << *(v_ptrptr[i]) << endl;
-  }
-
-
+  cout << to_string(m1) << endl;
 }
 
 int main(int argc, char **argv) {

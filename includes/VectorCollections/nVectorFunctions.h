@@ -4,8 +4,7 @@
 #include <sstream>
 
 
-namespace nVectorFunctions{
-
+namespace nVecFunc{
 
     template<typename value_t>
     void InitializeArray(value_t *arrayPointer, value_t init_value, int count)
@@ -16,10 +15,12 @@ namespace nVectorFunctions{
 
     template<typename value_t>
     void CopyArray(value_t* destArrayPointer, value_t* copyArrayPointer, int count){
-        for (size_t i = 0; i < count; i++)
-        {
-            *(destArrayPointer+i) = *(copyArrayPointer + i);
-        }
+
+        std::copy(copyArrayPointer, copyArrayPointer + count , destArrayPointer);
+        // for (size_t i = 0; i < count; i++)
+        // {
+        //     *(destArrayPointer+i) = *(copyArrayPointer + i);
+        // }
     }
 
     template<class value_t>
@@ -29,7 +30,7 @@ namespace nVectorFunctions{
         ss << "[";
         for (size_t i = 0; i < count; i++)
         {   
-            ss << std::to_string(*(arrayPointer + i)) << ", ";
+            ss << *(arrayPointer + i) << ", ";
         }
         ss << "]";   
         return ss.str();
@@ -42,4 +43,19 @@ namespace nVectorFunctions{
         InitializeArray(ptr, init_value, count);
         return ptr;
     }
+
+    template <class value_t>
+    void addArray(value_t *destarr, const value_t* addarr, int count)
+    {
+        for(int i = 0; i < count; ++i)
+            destarr[i] += addarr[i];
+    }
+    
+    template <class value_t, class scal_t>
+    void mulArray(value_t *destarr, scal_t scalar, int count)
+    {
+        for(int i = 0; i < count; ++i)
+            destarr[i] *= scalar;
+    }
+    
 }
