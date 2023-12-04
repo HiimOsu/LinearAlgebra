@@ -3,14 +3,32 @@
 #include "nVector.h"
 #include "math.h"
 
+// namespace nVecFunc
+// {
+    
+//     template <class value_t = float, class scal_t = float, int size = 2>
+//     float dotArray(float* v1, float* v2)
+//     {
+//             float value = 0;
+//             for(int i = 0; i < 2; ++i)
+//                 if(i == 0)
+//                     value +=  2 * v1[i] * v2[i];
+//                 else
+//                     value +=  10 * v1[i] * v2[i];
+//             return value;
+//     }
+
+// }
+
 namespace DAM
 {
-    class Vector2f : public nVector<float,float>
+    class Vector2f : public nVector<float>
     {
         private:
 
         public:
-            Vector2f(float x=0, float y=0): nVector<float,float>({x,y}) 
+        //Constructor
+            Vector2f(float x=0, float y=0): nVector<float>({x,y}) 
             {
                 // std::cout << n_Order << "\n";
                 // for(int i = 0; i < n_Order; ++i)
@@ -20,20 +38,20 @@ namespace DAM
                 // }
             }
             
-            Vector2f(std::initializer_list<float> c): nVector<float,float>(c,2)
+            Vector2f(std::initializer_list<float> c): nVector<float>(c,2)
             {
                 if(c.size() > 2) std::__throw_logic_error("");
                 
             }
 
-            //Big3
-            Vector2f(const nVector<float,float>& copy_me): nVector<float,float>(copy_me)
+        //Big3
+            Vector2f(const nVector<float>& copy_me): nVector<float>(copy_me)
             {
                 if(copy_me.size() != 2) assert(false);
             }
 
-            //Assign
-            Vector2f& operator=(const nVector<float,float>& assign_me)
+        //Assign
+            Vector2f& operator=(const nVector<float>& assign_me)
             {
                 if(assign_me.size() != 2) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
@@ -44,11 +62,21 @@ namespace DAM
                 std::copy(assign_me.begin(), assign_me.end(), begin());
             }
 
+        //Virtual
+
+        //Example of defining innner product
+            // float operator* (const Vector2f& v2)
+            // {
+            //     return nVecFunc::dotArray<float,float,2>(arrayPointer, v2.arrayPointer);
+            // }
+
+        
+        //Getter
             float& x() {return arrayPointer[0];}
             float& y() {return arrayPointer[1];}
-            
+
             float length(){
-                return std::sqrt(Vector2f::dotProduct(*this,*this));
+                return std::sqrt(*this * *this);
             }
             Vector2f normalize()
             {
@@ -57,12 +85,12 @@ namespace DAM
 
     };
 
-    class Vector3f: public nVector<float,float>
+    class Vector3f: public nVector<float>
     {
         private:
 
         public:
-            Vector3f(float x=0, float y=0, float z=0): nVector<float,float>({x,y,z}) 
+            Vector3f(float x=0, float y=0, float z=0): nVector<float>({x,y,z}) 
             {
                 // std::cout << n_Order << "\n";
                 // for(int i = 0; i < n_Order; ++i)
@@ -72,7 +100,7 @@ namespace DAM
                 // }
             }
             
-            Vector3f(std::initializer_list<float> c): nVector<float,float>(c,3)
+            Vector3f(std::initializer_list<float> c): nVector<float>(c,3)
             {
                 if(c.size() > 3) std::__throw_logic_error("");
                 
@@ -80,13 +108,13 @@ namespace DAM
 
             //CopyConstructor
             //conversion from nVector to Vector3f
-            Vector3f(const nVector<float,float>& copy_me): nVector<float,float>(copy_me)
+            Vector3f(const nVector<float>& copy_me): nVector<float>(copy_me)
             {
                 if(copy_me.size() != 3) assert(false);
             }
 
             //Assign
-            Vector3f& operator=(const nVector<float,float>& assign_me)
+            Vector3f& operator=(const nVector<float>& assign_me)
             {
                 if(assign_me.size() != 3) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
@@ -110,6 +138,6 @@ namespace DAM
                 return *this/length();
             }
         // private:
-        //     nVector<float,float> arr3;
+        //     nVector<float> arr3;
     };
 }

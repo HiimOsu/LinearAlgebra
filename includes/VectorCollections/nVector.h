@@ -5,7 +5,7 @@
 
 #include "nVectorFunctions.h"
 
-template <typename value_t, typename scal_t>
+template <class value_t>
 class nVector{
 protected:
     typedef int size_t;
@@ -41,7 +41,7 @@ public:
             n_Order = c.size();
         }
         else{
-            if(c.size() > n_Order) assert(false && "nVector<value_t,scal_t>::nVector(std::initializer_list<value_t> c)____________Size > order");
+            if(c.size() > n_Order) assert(false && "nVector<value_t>::nVector(std::initializer_list<value_t> c)____________Size > order");
         } 
 
         this->n_Order = n_Order;
@@ -55,7 +55,7 @@ public:
         std::copy(begin, end, arrayPointer);
     }
 //Big3
-    nVector(const nVector<value_t,scal_t>& copy_me){
+    nVector(const nVector<value_t>& copy_me){
         n_Order = copy_me.n_Order;
         arrayPointer = new value_t [n_Order];
         std::copy(copy_me.arrayPointer, copy_me.arrayPointer + n_Order , arrayPointer);
@@ -67,10 +67,10 @@ public:
         //     std::printf("Copy Consturctor:  %s (%i) \n", to_string().c_str() ,n_Order);
     }
 
-    nVector<value_t,scal_t>& operator =(const nVector<value_t,scal_t>& copy_me)
+    nVector<value_t>& operator =(const nVector<value_t>& copy_me)
     {
         if(n_Order != copy_me.n_Order){
-            assert(false && "nVector<value_t,scal_t>::operator =(const nVector<value_t,scal_t>&)____________Size != order");
+            assert(false && "nVector<value_t>::operator =(const nVector<value_t>&)____________Size != order");
             n_Order = copy_me.n_Order;
             delete arrayPointer;
             arrayPointer = new value_t[n_Order];
@@ -90,9 +90,9 @@ public:
         if(arrayPointer) delete arrayPointer;
     }
 //Assignment
-    nVector<value_t,scal_t>& operator =(const std::initializer_list<value_t>& c)
+    nVector<value_t>& operator =(const std::initializer_list<value_t>& c)
     {
-        if(c.size() != this->n_Order) assert(false && "nVector<value_t,scal_t>::operator =(const std::initializer_list<value_t>&)____________Size !=order");
+        if(c.size() != this->n_Order) assert(false && "nVector<value_t>::operator =(const std::initializer_list<value_t>&)____________Size !=order");
         std::copy(c.begin(), c.end(), arrayPointer);
         return *this;
     } 
@@ -112,56 +112,61 @@ public:
         arrayPointer = temp_arr;
         return old_arr;
     }
-    
-    nVector<value_t,scal_t>& operator+=(const nVector<value_t,scal_t>& v2)
+
+//Operator
+    nVector<value_t>& operator+=(const nVector<value_t>& v2)
     {
         *this = *this + v2;
         return *this;
     }
-
-    friend nVector<value_t,scal_t> operator+(const nVector<value_t,scal_t>& v1)
+    nVector<value_t>& operator-=(const nVector<value_t>& v2)
     {
-        return v1;
+        *this = *this - v2;
+        return *this;
     }
 
-    friend nVector<value_t,scal_t> operator+(const nVector<value_t,scal_t>& v1,  const nVector<value_t,scal_t>& v2)
+    nVector<value_t> operator+() const
     {
-        return vecAdd(v1, v2);
+        return *this;
     }
 
-    friend scal_t operator* (const nVector<value_t,scal_t>& v1, const nVector<value_t,scal_t>& v2)
+    nVector<value_t> operator+(const nVector<value_t>& v2) const
     {
-        return nVector<value_t,scal_t>::dotProduct(v1,v2);
+        return vecAdd(*this, v2);
+    }
+
+    value_t operator* (const nVector<value_t>& v2) const
+    {
+        return nVector<value_t>::dotProduct(*this,v2);
     }
     
-    friend nVector<value_t,scal_t> operator*(const nVector<value_t,scal_t>& v1, const scal_t& scalar){
+    nVector<value_t> operator*(const value_t& scalar) const{
+        return scalMul(*this, scalar);
+    }
+    
+    friend nVector<value_t> operator*(const value_t& scalar, const nVector<value_t>& v1){
         return scalMul(v1, scalar);
     }
     
-    friend nVector<value_t,scal_t> operator*(const scal_t& scalar, const nVector<value_t,scal_t>& v1){
-        return scalMul(v1, scalar);
-    }
-    
-    friend nVector<value_t,scal_t> operator-(const nVector<value_t,scal_t>& v1)
+    nVector<value_t> operator-() const
     {
-        return scalMul(v1, -1);
+        return scalMul(*this, -1);
     }
     
-    friend nVector<value_t,scal_t> operator/(const nVector<value_t,scal_t>& v1, const scal_t& scalar){
-        return scalMul(v1, 1/scalar);
+    nVector<value_t> operator/(const value_t& scalar) const{
+        return scalMul(*this, 1/scalar);
     }
 
-    friend nVector<value_t,scal_t> operator-(const nVector<value_t,scal_t>& v1, const nVector<value_t,scal_t>& v2)
+    nVector<value_t> operator-(const nVector<value_t>& v2) const
     {
-        return vecAdd(v1, scalMul(v2, -1));
+        return vecAdd(*this, scalMul(v2, -1));
     }
     
-    
-    static nVector<value_t,scal_t> vecAdd(const nVector<value_t,scal_t>& v1, const nVector<value_t,scal_t>& v2);
+    static nVector<value_t> vecAdd(const nVector<value_t>& v1, const nVector<value_t>& v2);
 
-    static nVector<value_t,scal_t> scalMul(const nVector<value_t,scal_t>& v1, const scal_t& scalar);
+    static nVector<value_t> scalMul(const nVector<value_t>& v1, const value_t& scalar);
     
-    static scal_t dotProduct(const nVector<value_t,scal_t>& v1, const nVector<value_t,scal_t>& v2);
+    static value_t dotProduct(const nVector<value_t>& v1, const nVector<value_t>& v2);
     
 
 //Getter
@@ -213,11 +218,11 @@ public:
         return nVecFunc::ToStringArray(arrayPointer, n_Order);
     }
 
-    friend std::string to_string(const nVector<value_t,scal_t>& object){
+    friend std::string to_string(const nVector<value_t>& object){
         return object.to_string();
     }
     
-    friend std::ostream& operator<<(std::ostream& outs, const nVector<value_t,scal_t>& v1)
+    friend std::ostream& operator<<(std::ostream& outs, const nVector<value_t>& v1)
     {
         outs << v1.to_string();
         return outs;
@@ -234,34 +239,36 @@ public:
 };
 
 
-template <class value_t, typename scal_t>
-scal_t nVector<value_t,scal_t>::dotProduct(const nVector<value_t,scal_t>& v1, const nVector<value_t,scal_t>& v2) 
+template <class value_t>
+value_t nVector<value_t>::dotProduct(const nVector<value_t>& v1, const nVector<value_t>& v2) 
 {
     if(v1.size() != v2.size()) 
         return value_t();
     // throw std::__throw_length_error("nVector<valueT>::dotProduct: v1.size != v2.size");
-    scal_t value = 0;
-    for(size_t i = 0; i < v1.size(); ++i){
-        value += v1[i] * v2[i];
-    }
+    // value_t value = 0;
+    // for(size_t i = 0; i < v1.size(); ++i){
+    //     value += v1[i] * v2[i];
+    // }
 
-    return value;
+    // return value;
+
+    return nVecFunc::dotArray<value_t>(v1.arrayPointer, v2.arrayPointer, v1.size());
 }
 
-template <class value_t, typename scal_t>
-nVector<value_t,scal_t> nVector<value_t,scal_t>::vecAdd(const nVector<value_t,scal_t>& v1, const nVector<value_t,scal_t>& v2)
+template <class value_t>
+nVector<value_t> nVector<value_t>::vecAdd(const nVector<value_t>& v1, const nVector<value_t>& v2)
 {
     if(v1.size() != v2.size()) assert(false && "nVector::vecAdd____________v1.size != v2.size");
     
-    nVector<value_t,scal_t> v3(v1);
+    nVector<value_t> v3(v1);
     nVecFunc::addArray(v3.begin(), v2.begin(), v1.size());          
     return v3;
 }
 
-template <class value_t, typename scal_t>
-nVector<value_t,scal_t> nVector<value_t,scal_t>::scalMul(const nVector<value_t,scal_t>& v1, const scal_t& scalar)
+template <class value_t>
+nVector<value_t> nVector<value_t>::scalMul(const nVector<value_t>& v1, const value_t& scalar)
 {
-    nVector<value_t,scal_t> v3(v1);
+    nVector<value_t> v3(v1);
 
     nVecFunc::mulArray(v3.begin(), scalar, v1.size());
     return v3;
@@ -269,7 +276,7 @@ nVector<value_t,scal_t> nVector<value_t,scal_t>::scalMul(const nVector<value_t,s
 }
 
 
-template <typename value_t, typename scal_t>
-const bool nVector<value_t,scal_t>::_debug;
+template <class value_t>
+const bool nVector<value_t>::_debug;
 
 

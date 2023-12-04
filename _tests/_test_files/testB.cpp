@@ -7,21 +7,20 @@
 
 using namespace std;
 
-
 TEST(nVectorTest, ModiferTest){
     cout << "Entering VectorModiferTest\n";
-    nVector<double,double> v1(3);
+    nVector<float> v1(3);
 
     v1[0] = 3;
     v1[1] = 5;
     v1[2] = 6;
 
-    nVector<double,double> v2(v1);
+    nVector<float> v2(v1);
     cout << "v1: " << v1.to_string() << endl;
     cout << "v2: " << to_string(v2) << endl;
 
-    cout << "the dot product of v1 and v2 : " << nVector<double,double>::dotProduct(v1, v2) << endl;
-    cout << "the dot product of v1 ^ 2: " << nVector<double,double>::dotProduct(v1, v1) << endl;
+    cout << "the dot product of v1 and v2 : " << nVector<float>::dotProduct(v1, v2) << endl;
+    cout << "the dot product of v1 ^ 2: " << nVector<float>::dotProduct(v1, v1) << endl;
 
     cout << "v1 + v2 : " << v1 + v2 << endl;
     cout << "v1 - v2: " << v1 - v2 << endl;
@@ -35,13 +34,15 @@ TEST(VectorCollections, vector2f)
   cout << a.x() << " " << a.y() << endl;
 
   a = {3,4};
-  a = a + a;
-  cout << a.to_string() << endl;
+  cout << a << endl;
   cout << a * 2 << endl;
+  cout << 2 * a << endl;
   cout << a / 2 << endl;
   cout << a + a <<endl;
   cout << a - a << endl;
-  cout << a * a << endl;
+  cout << a * a << "\n\n";
+  cout << "a.len = " << a.length() << endl;
+
   a = a + a;
   cout << "a+a: " << a << endl;
   cout << "b" << b << endl;
@@ -68,13 +69,13 @@ TEST(LinearAlgebra, MatrixTest){
   int col_n = 15;
   int row_m = 15;
 
-  Mat<float,int> m1(col_n, row_m);
-  Mat<float,int> m2 = Mat<float,int>(
+  Mat<float> m1(col_n, row_m);
+  Mat<float> m2 = Mat<float>(
     {{1,2},
      {1,2}},
     2,2);
-  Mat<float,int> m3 = m2;
-  Mat<float,int> m4 = m3;
+  Mat<float> m3 = m2;
+  Mat<float> m4 = m3;
 
   m4 = {{3.5,4}, {3.5,4}};
   
@@ -83,8 +84,8 @@ TEST(LinearAlgebra, MatrixTest){
   cout << "m3:\n" << m3 << endl; 
   cout << "m4: \n" << m4 << endl;
 
-  cout << "m3 + m4:\n" << Mat<float,int>::mat_matAdd(m4,m3) << endl;
-  cout << "m3 X m4:\n" << Mat<float,int>::mat_matMul(m3,m4) << endl;
+  cout << "m3 + m4:\n" << Mat<float>::mat_matAdd(m4,m3) << endl;
+  // cout << "m3 X m4:\n" << MatBase<float,int>::mat_matMul(m3,m4) << endl;
 }
 
 int main(int argc, char **argv) {

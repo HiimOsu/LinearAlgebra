@@ -52,11 +52,33 @@ namespace nVecFunc{
             destarr[i] += addarr[i];
     }
     
-    template <class value_t, class scal_t>
-    void mulArray(value_t *destarr, scal_t scalar, int count)
+    template <class value_t>
+    void mulArray(value_t *destarr, value_t scalar, int count)
     {
         for(int i = 0; i < count; ++i)
             destarr[i] *= scalar;
     }
-    
+
+    template <class value_t>
+    value_t dotArray(const value_t* arr1, const value_t* arr2, int count)
+    {
+        value_t value = 0;
+        for(int i = 0; i < count; ++i){
+            value += arr1[i] * arr2[i];
+        }
+
+        return value;
+    }
+
+    template <class value_t, int count>
+    value_t dotArray(const value_t* arr1, const value_t* arr2)
+    {
+        value_t value = 0;
+        for(int i = 0; i < count; ++i){
+            value += arr1[i] * arr2[i];
+        }
+
+        return value;
+    }
+
 }
