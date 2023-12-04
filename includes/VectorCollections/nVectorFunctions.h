@@ -30,7 +30,8 @@ namespace nVecFunc{
         ss << "[";
         for (size_t i = 0; i < count; i++)
         {   
-            ss << *(arrayPointer + i) << ", ";
+            ss << *(arrayPointer + i);
+            if(i != count -1) ss << "\t";
         }
         ss << "]";   
         return ss.str();

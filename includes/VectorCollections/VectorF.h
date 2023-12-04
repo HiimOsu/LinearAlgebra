@@ -5,12 +5,12 @@
 
 namespace DAM
 {
-    class Vector2f : public nVector<float>
+    class Vector2f : public nVector<float,float>
     {
         private:
 
         public:
-            Vector2f(float x=0, float y=0): nVector<float>({x,y}) 
+            Vector2f(float x=0, float y=0): nVector<float,float>({x,y}) 
             {
                 // std::cout << n_Order << "\n";
                 // for(int i = 0; i < n_Order; ++i)
@@ -20,20 +20,20 @@ namespace DAM
                 // }
             }
             
-            Vector2f(std::initializer_list<float> c): nVector<float>(c,2)
+            Vector2f(std::initializer_list<float> c): nVector<float,float>(c,2)
             {
                 if(c.size() > 2) std::__throw_logic_error("");
                 
             }
 
             //Big3
-            Vector2f(const nVector<float>& copy_me): nVector<float>(copy_me)
+            Vector2f(const nVector<float,float>& copy_me): nVector<float,float>(copy_me)
             {
                 if(copy_me.size() != 2) assert(false);
             }
 
             //Assign
-            Vector2f& operator=(const nVector<float>& assign_me)
+            Vector2f& operator=(const nVector<float,float>& assign_me)
             {
                 if(assign_me.size() != 2) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
@@ -48,7 +48,7 @@ namespace DAM
             float& y() {return arrayPointer[1];}
             
             float length(){
-                return std::sqrt(Vector2f::dot_product(*this,*this));
+                return std::sqrt(Vector2f::dotProduct(*this,*this));
             }
             Vector2f normalize()
             {
@@ -57,12 +57,12 @@ namespace DAM
 
     };
 
-    class Vector3f: public nVector<float>
+    class Vector3f: public nVector<float,float>
     {
         private:
 
         public:
-            Vector3f(float x=0, float y=0, float z=0): nVector<float>({x,y,z}) 
+            Vector3f(float x=0, float y=0, float z=0): nVector<float,float>({x,y,z}) 
             {
                 // std::cout << n_Order << "\n";
                 // for(int i = 0; i < n_Order; ++i)
@@ -72,7 +72,7 @@ namespace DAM
                 // }
             }
             
-            Vector3f(std::initializer_list<float> c): nVector<float>(c,3)
+            Vector3f(std::initializer_list<float> c): nVector<float,float>(c,3)
             {
                 if(c.size() > 3) std::__throw_logic_error("");
                 
@@ -80,13 +80,13 @@ namespace DAM
 
             //CopyConstructor
             //conversion from nVector to Vector3f
-            Vector3f(const nVector<float>& copy_me): nVector<float>(copy_me)
+            Vector3f(const nVector<float,float>& copy_me): nVector<float,float>(copy_me)
             {
                 if(copy_me.size() != 3) assert(false);
             }
 
             //Assign
-            Vector3f& operator=(const nVector<float>& assign_me)
+            Vector3f& operator=(const nVector<float,float>& assign_me)
             {
                 if(assign_me.size() != 3) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
@@ -103,13 +103,13 @@ namespace DAM
             float& z() {return arrayPointer[2];}
             
             float length() const{
-                return std::sqrt(Vector3f::dot_product(*this,*this));
+                return std::sqrt(Vector3f::dotProduct(*this,*this));
             }
             Vector3f normalize() const
             {
                 return *this/length();
             }
         // private:
-        //     nVector<float> arr3;
+        //     nVector<float,float> arr3;
     };
 }
