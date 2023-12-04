@@ -86,9 +86,27 @@ public:
         }
         return *this;
     }
+
+    Mat& operator+ ()
+    {
+        return *this;
+    }
+    Mat& operator+ (const Mat<value_t>& m2)
+    {
+        return mat_matAdd(*this, m2);
+    }
+    Mat& operator-()
+    {
+        return mat_scalMul(*this, -1);
+    }
+    Mat& operator-(const Mat<value_t>& m2)
+    {
+        return m2;
+    }
 //Modifier
     static Mat<value_t> mat_matAdd(const Mat<value_t>& m1, const Mat<value_t>& m2);
     static Mat<value_t> mat_scalMul(const Mat<value_t>& m1, value_t scal);
+    static Mat<value_t> mat_neg(const Mat<value_t>& m1);
     static Mat<value_t> mat_matMul(const Mat<value_t>& m1, const Mat<value_t>& m2);
 
     nVector<value_t>* begin(){return mat;}
@@ -177,9 +195,8 @@ template <class value_t>
 Mat<value_t> Mat<value_t>::mat_matMul(const Mat<value_t>& m1, const Mat<value_t>& m2)
 {
     if(m1.col_n != m2.row_n) assert(false&& "mat_matMul_____Dimension misMatch M1 X M2");
-
-    size_t row_n = m1.getSize_Col(),
-    col_n = m2.getSize_Row();
+    size_t row_n = m1.getSize_Col();
+    size_t col_n = m2.getSize_Row();
     Mat<value_t> m3(row_n, col_n);
 
     for(size_t i = 0; i < row_n; ++i)
@@ -187,4 +204,16 @@ Mat<value_t> Mat<value_t>::mat_matMul(const Mat<value_t>& m1, const Mat<value_t>
             m3[i][j] = m1.getRow(i) * m2.getCol(j);
     return m3;
 }
+
+template <class value_t>
+Mat<value_t>  Mat<value_t>::mat_neg(const Mat<value_t>& m1)
+{
+    Mat<value_t> m3(m1);
+    size_t row_size = m1.getSize_Row();
+
+    for(int i = 0; i < row_size; ++i)
+        m3.mat[i] = -m3.mat[i];
+    return m3;
+}
+
 

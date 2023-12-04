@@ -3,51 +3,32 @@
 #include "nVector.h"
 #include "math.h"
 
-// namespace nVecFunc
-// {
-    
-//     template <class value_t = float, class scal_t = float, int size = 2>
-//     float dotArray(float* v1, float* v2)
-//     {
-//             float value = 0;
-//             for(int i = 0; i < 2; ++i)
-//                 if(i == 0)
-//                     value +=  2 * v1[i] * v2[i];
-//                 else
-//                     value +=  10 * v1[i] * v2[i];
-//             return value;
-//     }
-
-// }
 
 namespace DAM
 {
     class Vector2f : public nVector<float>
     {
         private:
-
+            float len;
         public:
         //Constructor
             Vector2f(float x=0, float y=0): nVector<float>({x,y}) 
             {
-                // std::cout << n_Order << "\n";
-                // for(int i = 0; i < n_Order; ++i)
-                // {
-
-                //     std::cout << *(arrayPointer+i) << std::endl;
+                len = std::sqrt(*this * *this);
                 // }
             }
             
             Vector2f(std::initializer_list<float> c): nVector<float>(c,2)
             {
                 if(c.size() > 2) std::__throw_logic_error("");
-                
+                len = std::sqrt(*this * *this);
             }
 
-        //Big3
             Vector2f(const nVector<float>& copy_me): nVector<float>(copy_me)
             {
                 if(copy_me.size() != 2) assert(false);
+                this->len = std::sqrt(*this * *this);
+                
             }
 
         //Assign
@@ -55,28 +36,21 @@ namespace DAM
             {
                 if(assign_me.size() != 2) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
+                len = std::sqrt(assign_me*assign_me);
             }
             Vector2f& operator=(std::initializer_list<float> assign_me)
             {
                 if(assign_me.size() != 2) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
+                len = std::sqrt(*this * *this);
             }
 
-        //Virtual
-
-        //Example of defining innner product
-            // float operator* (const Vector2f& v2)
-            // {
-            //     return nVecFunc::dotArray<float,float,2>(arrayPointer, v2.arrayPointer);
-            // }
-
-        
         //Getter
             float& x() {return arrayPointer[0];}
             float& y() {return arrayPointer[1];}
 
             float length(){
-                return std::sqrt(*this * *this);
+                return len;
             }
             Vector2f normalize()
             {
@@ -88,29 +62,24 @@ namespace DAM
     class Vector3f: public nVector<float>
     {
         private:
-
+            float len;
         public:
             Vector3f(float x=0, float y=0, float z=0): nVector<float>({x,y,z}) 
             {
-                // std::cout << n_Order << "\n";
-                // for(int i = 0; i < n_Order; ++i)
-                // {
-
-                //     std::cout << *(arrayPointer+i) << std::endl;
-                // }
+                len = std::sqrt(*this * *this);
             }
             
             Vector3f(std::initializer_list<float> c): nVector<float>(c,3)
             {
                 if(c.size() > 3) std::__throw_logic_error("");
-                
+                len = std::sqrt(*this * *this);
             }
 
-            //CopyConstructor
             //conversion from nVector to Vector3f
             Vector3f(const nVector<float>& copy_me): nVector<float>(copy_me)
             {
                 if(copy_me.size() != 3) assert(false);
+                len = std::sqrt(*this * *this);
             }
 
             //Assign
@@ -118,12 +87,14 @@ namespace DAM
             {
                 if(assign_me.size() != 3) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
+                len = std::sqrt(*this * *this);
             }
             
             Vector3f& operator=(std::initializer_list<float> assign_me)
             {
                 if(assign_me.size() != 3) assert(false);
                 std::copy(assign_me.begin(), assign_me.end(), begin());
+                len = std::sqrt(*this * *this);
             }
 
             float& x() {return arrayPointer[0];}
@@ -131,7 +102,7 @@ namespace DAM
             float& z() {return arrayPointer[2];}
             
             float length() const{
-                return std::sqrt(Vector3f::dotProduct(*this,*this));
+                return len;
             }
             Vector3f normalize() const
             {
@@ -140,4 +111,5 @@ namespace DAM
         // private:
         //     nVector<float> arr3;
     };
+
 }

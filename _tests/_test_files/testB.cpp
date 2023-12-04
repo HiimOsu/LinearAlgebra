@@ -7,20 +7,31 @@
 
 using namespace std;
 
+float dotArray(const float* arr1, const float* arr2, int count)
+{
+  float value = 0;
+  for(int i = 0; i < count; ++i)
+  {
+    value += arr1[i] * arr2[i] * arr1[i] * arr2[i];
+  }
+
+  return value;
+}
+
 TEST(nVectorTest, ModiferTest){
     cout << "Entering VectorModiferTest\n";
-    nVector<float> v1(3);
+    nVector<float,nVecFunc::addArray, nVecFunc::mulArray, nVecFunc::negArray, dotArray> v1(3);
 
     v1[0] = 3;
     v1[1] = 5;
     v1[2] = 6;
 
-    nVector<float> v2(v1);
+    nVector<float,nVecFunc::addArray, nVecFunc::mulArray, nVecFunc::negArray, dotArray> v2(v1);
     cout << "v1: " << v1.to_string() << endl;
     cout << "v2: " << to_string(v2) << endl;
 
-    cout << "the dot product of v1 and v2 : " << nVector<float>::dotProduct(v1, v2) << endl;
-    cout << "the dot product of v1 ^ 2: " << nVector<float>::dotProduct(v1, v1) << endl;
+    cout << "the dot product of v1 and v2 : " << nVector<float,nVecFunc::addArray, nVecFunc::mulArray, nVecFunc::negArray, dotArray>::dotProduct(v1, v2) << endl;
+    cout << "the dot product of v1 ^ 2: " << nVector<float,nVecFunc::addArray, nVecFunc::mulArray, nVecFunc::negArray, dotArray>::dotProduct(v1, v1) << endl;
 
     cout << "v1 + v2 : " << v1 + v2 << endl;
     cout << "v1 - v2: " << v1 - v2 << endl;
@@ -40,8 +51,7 @@ TEST(VectorCollections, vector2f)
   cout << a / 2 << endl;
   cout << a + a <<endl;
   cout << a - a << endl;
-  cout << a * a << "\n\n";
-  cout << "a.len = " << a.length() << endl;
+  cout << a * a << endl;
 
   a = a + a;
   cout << "a+a: " << a << endl;

@@ -60,6 +60,14 @@ namespace nVecFunc{
     }
 
     template <class value_t>
+    void negArray(value_t * destArr, int count)
+    {
+        for(int i = 0; i < count; ++i)
+            destArr[i] *= -1;
+    }
+
+//IDK: maybe let ppl to define innerproduct 
+    template <class value_t>
     value_t dotArray(const value_t* arr1, const value_t* arr2, int count)
     {
         value_t value = 0;
