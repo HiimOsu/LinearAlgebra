@@ -2,8 +2,8 @@
 #include <SFML\Graphics.hpp>
 #include <stdint.h>
 
-#include "sources\VectorCollections\nVector.h"
-#include "sources\Game\Game.h"
+#include "sources\VectorCollections\nVector.hpp"
+#include "sources\Game\Game.hpp"
 
 using namespace std;
 

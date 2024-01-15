@@ -4,7 +4,7 @@
 
 #include <cassert>
 
-#include "nVectorFunctions.h"
+#include "nVectorFunctions.hpp"
 
 
 //Defining "Gener Vector space" (10 Axioms) + Inner-ProductSpace (inner-product)

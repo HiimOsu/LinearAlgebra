@@ -5,9 +5,9 @@
 
 #include "WorkingDirectory/WorkingDirectory.h"
 #include "Window/Window.h"
-#include "Input/Input.h"
+#include "Input/Input.hpp"
 
-#include "../VectorCollections/VectorCollections.h"
+#include "../VectorCollections/VectorCollections.hpp"
 
 class Game
 {
