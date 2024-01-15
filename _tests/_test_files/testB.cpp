@@ -71,8 +71,8 @@ TEST(VectorCollections, vector3f)
   a = a + a;
   cout << "a+a: " << a << endl;
   cout << "b" << b << endl;
-  cout << "b.normalize && length : " << b.normalize() << " + " << b.length() << endl; 
-  cout << "b.normal length: " << b.normalize().length() << endl;
+  cout << "b.normalize && length : " << b.normalize() << " + " << b.len << endl; 
+  cout << "b.normal length: " << b.normalize().len << endl;
 
 }
 

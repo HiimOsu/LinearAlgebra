@@ -26,6 +26,6 @@ int main(){
     // int pos = 1;
     // cout << "bits: " << bits << endl;
     // cout << "bits in bool : " << (bool) bits << endl;
-    // cout << "(u_int32) (1 << pos) : " << (uint32_t) ((1 << pos)) << endl;
+    // cout << "(u_int32) (1 << pos) : " << (uint32_t) ((1 << pos)) << endlg;
     // cout << "bits & (1 << pos) : " << (bool) (bits & (1 << pos) )<< endl;
 }

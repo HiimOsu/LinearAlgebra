@@ -3,8 +3,8 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 
-#include "WorkingDirectory/WorkingDirectory.h"
-#include "Window/Window.h"
+#include "WorkingDirectory/WorkingDirectory.hpp"
+#include "Window/Window.hpp"
 #include "Input/Input.hpp"
 
 #include "../VectorCollections/VectorCollections.hpp"
