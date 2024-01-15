@@ -3,7 +3,6 @@
 #include <string>
 #include <sstream>
 
-
 namespace nVecFunc{
 
     template<typename value_t>
