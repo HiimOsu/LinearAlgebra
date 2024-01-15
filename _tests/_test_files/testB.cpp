@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "..\..\sources\VectorCollections\nVector.h"
-#include "..\..\sources\VectorCollections\VectorCollections.h"
+#include "..\..\sources\VectorCollections\nVector.hpp"
+#include "..\..\sources\VectorCollections\VectorCollections.hpp"
 
 using namespace std;
 

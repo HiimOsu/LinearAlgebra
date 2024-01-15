@@ -1,7 +1,7 @@
 #ifndef BITMASK_CPP
 #define BITMASK_CPP
 
-#include "Bitmask.h"
+#include "Bitmask.hpp"
 
 Bitmask::Bitmask()
 {

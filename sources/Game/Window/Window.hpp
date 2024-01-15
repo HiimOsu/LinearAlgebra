@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WINDOW_HPP
+#define WINDOW_HPP
 #include <SFML/Graphics.hpp>
 #include <string>
 
@@ -17,3 +18,4 @@ public:
     bool isOpen() const;
     sf::Window& getWindow(){return window;}
 };
+#endif

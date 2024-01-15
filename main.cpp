@@ -8,7 +8,7 @@
 using namespace std;
 
 int main(){
-    cout << "Entering Main\n";
+    cout << "Entering Main!\n";
 
     sf::Window window;
     Game game;

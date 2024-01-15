@@ -3,23 +3,24 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 
-#include "WorkingDirectory.h"
-#include "Window.h"
+#include "WorkingDirectory/WorkingDirectory.h"
+#include "Window/Window.h"
+#include "Input/Input.h"
 
 #include "../VectorCollections/VectorCollections.h"
-#include "Input.h"
 
 class Game
 {
 private:
+    //My own toolkits
     Window window;
     WorkingDirectory workingDir;
+    Input input;
 
     //sample of drawing something
     sf::Texture vikingTexture;
     sf::Sprite  vikingSprite;
 
-    Input input;
     sf::Clock   clock;
     float       deltaTime_sec;
     double      absoluteTime_sec;

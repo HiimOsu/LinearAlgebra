@@ -2,7 +2,7 @@
 #define INPUT_H
 
 #include <SFML/Graphics.hpp>
-#include "BitMask.h"
+#include "../Bitmask/Bitmask.hpp"
 class Input
 {
 private:

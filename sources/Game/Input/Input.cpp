@@ -1,7 +1,7 @@
 #ifndef INPUT_CPP
 #define INPUT_CPP
 
-#include "Input.h"
+#include "Input.hpp"
 
 bool Input::IsPressed(Key keycode)
 {

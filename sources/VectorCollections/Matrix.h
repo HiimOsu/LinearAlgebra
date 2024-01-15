@@ -3,8 +3,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include "nVector.h"
-#include "VectorCollections.h"
+#include "VectorCollections.hpp"
 
 template<class value_t>
 class Mat

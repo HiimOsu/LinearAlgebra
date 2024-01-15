@@ -1,4 +1,7 @@
-#include "Window.h"
+#ifndef WINDOW_CPP
+#define WINDOW_CPP
+
+#include "Window.hpp"
 
 Window::Window(const std::string& windowName) 
     : window(sf::VideoMode(800, 600), windowName, sf::Style::Titlebar)
@@ -38,3 +41,5 @@ bool Window::isOpen() const
 {
     return window.isOpen();
 }
+
+#endif
